@@ -1,0 +1,25 @@
+import { View, Text } from "react-native";
+import CustomButton from "./CustomButton";
+
+type ItemProps = {
+  name: string;
+  price: number;
+  pcs: number;
+};
+
+export default function ItemCard({ name, price, pcs }: ItemProps) {
+  return (
+    <View className="bg-gray-200 p-4 rounded-xl mb-4">
+      <Text className="text-4xl font-bold mb-2">{name}</Text>
+
+      <Text className="text-base">ราคา: {price} บาท</Text>
+      <Text className="text-base mb-3">จำนวน: {pcs} ชิ้น</Text>
+
+      <CustomButton
+        title="สั่งซื้อ"
+        size="medium"
+        variant="primary"
+      />
+    </View>
+  );
+}

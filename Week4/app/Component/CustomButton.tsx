@@ -28,7 +28,7 @@ export default function CustomButton({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`rounded-lg ${variantClass[variant]} active:bg-opacity-70`}
+      className={`${sizeClass[size]} ${variantClass[variant]} rounded-lg active:bg-opacity-70`}
     >
       <Text
         className={`text-white font-bold text-center ${sizeClass[size]}`}
