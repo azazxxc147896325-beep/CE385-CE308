@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.4.1",
-  "engineVersion": "55ae170b1ced7fc6ed07a15f110549408c501bb3",
+  "clientVersion": "7.4.2",
+  "engineVersion": "94a226be1cf2967af2541cca5529f0f7ba866919",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  UserId    String   @id @default(uuid()) @db.Uuid // ใช้ UUID เป็น Primary Key\n  email     String   @unique // อีเมลต้องไม่ซ้ำกัน\n  name      String? // ข้อมูลนี้สามารถเป็น null ได้\n  createdAt DateTime @default(now()) // วันที่สร้างบัญชีผู้ใช้ และมีค่าเริ่มต้นเป็นเวลาปัจจุบัน (@default(now()))\n  posts     Post[] // เพิ่มความสัมพันธ์: หนึ่ง User มีหลาย Post\n}\n\nmodel Post {\n  postId    String   @id @default(uuid()) @db.Uuid // ใช้ UUID เป็น Primary Key\n  title     String // หัวข้อของโพสต์\n  content   String? // เนื้อหาของโพสต์ สามารถเป็น null ได้\n  published Boolean  @default(false) // สถานะการเผยแพร่ของโพสต์ มีค่าเริ่มต้นเป็น false\n  author    User     @relation(fields: [authorId], references: [UserId]) // ความสัมพันธ์กับ User\n  authorId  String   @db.Uuid // Foreign Key\n  createdAt DateTime @default(now()) // วันที่สร้างโพสต์ และมีค่าเริ่มต้นเป็นเวลาปัจจุบัน (@default(now()))\n  updatedAt DateTime @updatedAt // อัปเดตเวลาทุกครั้งเมื่อมีการแก้ไข\n}\n",
   "runtimeDataModel": {
@@ -67,7 +67,9 @@ export interface PrismaClientConstructor {
    * Type-safe database client for TypeScript
    * @example
    * ```
-   * const prisma = new PrismaClient()
+   * const prisma = new PrismaClient({
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * })
    * // Fetch zero or more Users
    * const users = await prisma.user.findMany()
    * ```
@@ -89,7 +91,9 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```
