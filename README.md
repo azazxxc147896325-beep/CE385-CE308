@@ -23,3 +23,32 @@ W5
 3. POSTเพิ่มนักเรียนใหม่การทำงานรับข้อมูล name และ age จาก request bodyสร้าง ID ใหม่โดยเอา ID สูงสุด + 1เพิ่มนักเรียนใหม่เข้า arrayส่งข้อมูลนักเรียนที่สร้างกลับไป (status 201)
 4. PUTแก้ไขข้อมูลนักเรียนการทำงานผ่าน middleware validateStudent เช็คข้อมูลก่อนค้นหานักเรียนจาก IDอัพเดต name และ ageส่งข้อมูลที่แก้ไขกลับไป
 5. DELETEลบนักเรียนการทำงานค้นหา index ของนักเรียนจาก IDลบออกจาก array ด้วย spliceส่งข้อความยืนยันการลบ
+
+W7 
+GET /users/email/:email
+รับ email จาก URL ไปหา User ในฐานข้อมูล
+ไม่เจอ → 404 | เจอ → ส่งข้อมูล User พร้อมโพสต์ทั้งหมด
+
+DELETE /users/:id
+รับ userId มา
+ลบโพสต์ของ User นั้นทั้งหมดก่อน แล้วค่อยลบ User
+
+POST /posts
+รับ title, content, authorId
+สร้างโพสต์ใหม่ (postId สุ่มให้, published = false)
+
+GET /posts
+ดึงโพสต์ทั้งหมด พร้อมข้อมูล User เจ้าของโพสต์
+ส่งกลับเป็น Array
+
+GET /posts/:id
+รับ postId ไปหาโพสต์
+ไม่เจอ → 404 | เจอ → ส่งโพสต์พร้อมข้อมูล User
+
+PUT /posts/:id
+รับ postId และข้อมูลที่จะแก้
+อัปเดตโพสต์ และอัปเดตเวลา updatedAt อัตโนมัติ
+
+DELETE /posts/:id
+รับ postId แล้วลบโพสต์
+ส่งข้อความยืนยันการลบ
